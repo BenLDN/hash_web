@@ -1,0 +1,54 @@
+<!doctype html>
+
+<html>
+   	<body>
+
+   		<div class="hasher">
+
+	   	<h2>Hash My Darling</h2>
+		<h3>What should we hash today?</h3>
+		<form action="{{ url_for('hish_hash') }}" method="POST">
+		 	<input type="text" name="source_string" size="128" value="">
+		 	<br><br>
+		 	<input type="submit" value="Hish-Hash!">
+		</form> 
+
+		<h3>Let's Digest the Results</h3>
+
+		{% for hash in hashes %}
+
+			<b> {{ hash["type"] }} : </b>
+			{{ hash["digest"] }} <br>
+
+		{% endfor %}
+
+		</div>
+
+   		<div class="cracker">
+
+	   	<h2>Let's Crack On</h2>
+		<h3>What should we crack today?</h3>
+		<div>I can crack the key if it ONLY contains lower-case letters of the Eglish alphabet</div><br>
+		<form action="{{ url_for('crick_crack') }}" method="POST">
+		 	<select name="hash_type">
+				<option value="MD5">MD5</option>
+				<option value="SHA1">SHA1</option>
+				<option value="SHA224">SHA224</option>
+				<option value="SHA256">SHA256</option>
+				<option value="SHA384">SHA384</option>
+				<option value="SHA512">SHA512</option>
+			</select> 
+			<br><br>
+		 	<input type="text" name="target_hash" size="128" value="">
+		 	<br><br>
+		 	<input type="submit" value="Crick-Crack!">
+		</form> 
+
+		<h3>Cracked Key:</h3><br>
+		{{ cracked }}
+
+		</div>
+      
+   	</body>
+	
+</html>
