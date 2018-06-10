@@ -1,0 +1,4 @@
+body            { text-align: center; font-family: sans-serif; background-image: url("background.jpg");}
+
+.hasher          { color: #043227; margin: 2em auto; border: 5px solid black; padding: 0.8em; background: #a6d96a; }
+.cracker         { color: #a6d96a; margin: 2em auto; border: 5px solid black; padding: 0.8em; background: #043227; }
