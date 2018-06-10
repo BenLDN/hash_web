@@ -28,23 +28,29 @@
 
 	   	<h2>Let's Crack On</h2>
 		<h3>What should we crack today?</h3>
-		<div>I can crack the key if it ONLY contains lower-case letters of the Eglish alphabet</div><br>
+		<div>I can crack the key if it ONLY contains lower-case letters of the Eglish alphabet and if it is maximum 6 characters long</div><br>
 		<form action="{{ url_for('crick_crack') }}" method="POST">
-		 	<select name="hash_type">
-				<option value="MD5">MD5</option>
-				<option value="SHA1">SHA1</option>
-				<option value="SHA224">SHA224</option>
-				<option value="SHA256">SHA256</option>
-				<option value="SHA384">SHA384</option>
-				<option value="SHA512">SHA512</option>
-			</select> 
+
+			<input type="radio" id="md5" name="hash_type" value="md5" checked="checked">
+			<label for="md5" >MD5</label>
+			<input type="radio" id="sha1" name="hash_type" value="sha1">
+			<label for="sha1">SHA1</label>
+			<input type="radio" id="sha224" name="hash_type" value="sha256">
+			<label for="sha224">SHA224</label>
+			<input type="radio" id="sha256" name="hash_type" value="sha224">
+			<label for="sha256">SHA256</label>
+			<input type="radio" id="sha384" name="hash_type" value="sha384">
+			<label for="sha384">SHA384</label>
+			<input type="radio" id="sha512" name="hash_type" value="sha512">
+			<label for="sha512">SHA512</label>
+
 			<br><br>
 		 	<input type="text" name="target_hash" size="128" value="">
 		 	<br><br>
 		 	<input type="submit" value="Crick-Crack!">
 		</form> 
 
-		<h3>Cracked Key:</h3><br>
+		<h3>Cracked Key:</h3>
 		{{ cracked }}
 
 		</div>

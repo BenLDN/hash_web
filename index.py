@@ -11,9 +11,9 @@ app = Flask(__name__)
 
 @app.route('/')
 def hasher():
+
 	return render_template("hash.html", hashes = hashes, cracked = cracked)
 
-#not used directly, the form in index.html posts data to /new_msg
 @app.route('/hish-hash', methods = ['POST'])
 def hish_hash():
 	
@@ -34,12 +34,15 @@ def hish_hash():
 
 @app.route('/crick-crack', methods = ['POST'])
 def crick_crack():
+
+	global cracked
 	
 	if request.method == "POST":
 
-		target_hash=request.form['target_hash']
+		target_hash=request.form['target_hash'].strip()
 
-		cracked=hash_crack.crack512(target_hash)
+		cracked=hash_crack.crack_it(target_hash, request.form["hash_type"])
+
 
 	return redirect('/')
 
