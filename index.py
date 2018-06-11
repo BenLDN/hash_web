@@ -3,20 +3,22 @@
 from flask import Flask, render_template, request, redirect
 import hash_it
 import hash_crack
+import time
 
 hashes=[]
 cracked="Not cracked (yet)"
+crack_time="n/a"
 
 app = Flask(__name__)
 
 @app.route('/')
 def hasher():
 
-	return render_template("hash.html", hashes = hashes, cracked = cracked)
+	return render_template("hash.html", hashes = hashes, cracked = cracked, crack_time = crack_time)
 
 @app.route('/hish-hash', methods = ['POST'])
 def hish_hash():
-	
+
 	if request.method == "POST":
 
 		source_string=request.form['source_string']
@@ -35,7 +37,10 @@ def hish_hash():
 @app.route('/crick-crack', methods = ['POST'])
 def crick_crack():
 
+	start = time.time()
+
 	global cracked
+	global crack_time
 	
 	if request.method == "POST":
 
@@ -43,6 +48,9 @@ def crick_crack():
 
 		cracked=hash_crack.crack_it(target_hash, request.form["hash_type"])
 
+	end = time.time()
+	
+	crack_time = str(end - start)
 
 	return redirect('/')
 
