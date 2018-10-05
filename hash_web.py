@@ -10,20 +10,23 @@ cracked="Not cracked (yet)"
 crack_time="n/a"
 
 app = Flask(__name__)
+app.config['APPLICATION_ROOT'] = "/fun-with-hashes"
+prefix="/fun-with-hashes"
 
-@app.route('/')
+@app.route(prefix+'/')
 def hasher():
 
-	return render_template("hash.html", hashes = hashes, cracked = cracked, crack_time = crack_time)
+	return render_template("hash.html", hashes = hashes, cracked = cracked, crack_time = crack_time, prefix=prefix)
 
-@app.route('/hish-hash', methods = ['POST'])
+@app.route(prefix+'/hish-hash', methods = ['POST'])
 def hish_hash():
 
 	if request.method == "POST":
 
 		source_string=request.form['source_string']
 
-		hashes.clear()
+		del hashes[:]
+		#hashes.clear()
 
 		hashes.append({"type":"MD5", "digest": hash_it.hash_md5(source_string)})
 		hashes.append({"type":"SHA1", "digest": hash_it.hash_sha1(source_string)})
@@ -32,9 +35,9 @@ def hish_hash():
 		hashes.append({"type":"SHA384", "digest": hash_it.hash_sha384(source_string)})
 		hashes.append({"type":"SHA512", "digest": hash_it.hash_sha512(source_string)})
 
-	return redirect('/')
+	return redirect(prefix+'/')
 
-@app.route('/crick-crack', methods = ['POST'])
+@app.route(prefix+'/crick-crack', methods = ['POST'])
 def crick_crack():
 
 	start = time.time()
@@ -52,7 +55,7 @@ def crick_crack():
 	
 	crack_time = str(end - start)
 
-	return redirect('/')
+	return redirect(prefix+'/')
 
 if __name__ == '__main__':
    app.run(host='0.0.0.0', debug = True)
