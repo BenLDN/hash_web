@@ -5,6 +5,7 @@ import hash_it
 import hash_crack
 import time
 
+#default (starting) values of the variables used in the app
 hashes=[]
 cracked="Not cracked (yet)"
 crack_time="n/a"
@@ -18,6 +19,7 @@ def hasher():
 
 	return render_template("hash.html", hashes = hashes, cracked = cracked, crack_time = crack_time, prefix=prefix)
 
+#when the user clicks on the "Hish Hash" button, the key from the input box is passed to the hasher module
 @app.route(prefix+'/hish-hash', methods = ['POST'])
 def hish_hash():
 
@@ -37,18 +39,19 @@ def hish_hash():
 
 	return redirect(prefix+'/')
 
+#When the user clicks on the "Crick Crack" button, the hash from the input box and the chosen hash function are passed to the cracker module
 @app.route(prefix+'/crick-crack', methods = ['POST'])
 def crick_crack():
 
 	start = time.time()
 
+	#varibales should are used by the main function (hasher) as well
 	global cracked
 	global crack_time
 	
 	if request.method == "POST":
 
 		target_hash=request.form['target_hash'].strip()
-
 		cracked=hash_crack.crack_it(target_hash, request.form["hash_type"])
 
 	end = time.time()

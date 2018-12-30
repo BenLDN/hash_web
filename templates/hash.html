@@ -8,15 +8,26 @@
 
    		<div class="hasher">
 
-	   	<h2>Hash My Darling</h2>
-		<h3>What should we hash today?</h3>
+	   	<h2>Hashing and Cracking</h2>
+	   	<p>
+	   		Hash functions can map data of arbitrary size to data of a fixed size. (<a href="https://en.wikipedia.org/wiki/Hash_function">Hash functions in Wikipedia</a>) <br>
+	   		The ones used in cryptography are usually non-invertible. <br> 
+	   		This means that there is no easy way to reconstruct the original input. (<a href="https://en.wikipedia.org/wiki/One-way_function">One-way functions in Wikipedia</a>) <br>
+	   		However, there is a hard way: we can try all possible inputs until we find one that matches the hash. (<a href="https://en.wikipedia.org/wiki/Brute-force_search">Brute-force search in Wikipedia</a>) <br><br>
+	   		This simple app can do the following:<br>
+	   		<ul>
+	   			<li>Calculate the hash of an arbitrary input (key) using 6 different hash functions.</li>
+	   			<li>"Brute force" the key from a given hash is key is maximum 4 characters long and only contains lower case letters of the English alphabet </li>
+	   		</ul>
+	   	</p>
+		<h3>This is where you can hash a key: </h3>
 		<form action="{{ url_for('hish_hash') }}" method="POST">
 		 	<input type="text" name="source_string" size="128" value="">
 		 	<br><br>
 		 	<input type="submit" value="Hish-Hash!">
 		</form> 
 
-		<h3>Let's Digest the Results</h3>
+		<h3>Hashes will appear here: </h3>
 
 		{% for hash in hashes %}
 
@@ -29,9 +40,12 @@
 
    		<div class="cracker">
 
-	   	<h2>Let's Crack On</h2>
-		<h3>What should we crack today?</h3>
-		<div>I can crack the key if it ONLY contains lower-case letters of the Eglish alphabet and if it is maximum 6 characters long</div><br>
+	   	<h2>The Dark Side</h2>
+		<h3>This is where you can crack: </h3>
+		<div>
+			Remember, this app will only crack key if it's max 4 characters long.<br>
+			You have to paste the hash and select the hash function that was used to generate the it.<br><br>
+		</div>
 		<form action="{{ url_for('crick_crack') }}" method="POST">
 
 			<input type="radio" id="md5" name="hash_type" value="md5" checked="checked">
@@ -56,7 +70,7 @@
 		<h3>Cracked Key:</h3>
 		{{ cracked }}
 		<br><br>
-		<i>Time needed: </i> {{ crack_time }}
+		<i>Time needed (seconds): </i> {{ crack_time }}
 
 		</div>
       

@@ -5,7 +5,8 @@ import itertools
 import time
 import hash_it
 
-#iterating function from here: http://stackoverflow.com/questions/11747254/python-brute-force-algorithm
+#function to iterate through the possible combinations
+#source: http://stackoverflow.com/questions/11747254/python-brute-force-algorithm
 def bruteForce(charSet, maxLength): 
     return (''.join(candidate)
         for candidate in itertools.chain.from_iterable(itertools.product(charSet, repeat=i)
@@ -21,8 +22,8 @@ def crack_it(hashToCrack, hashType):
     #pw not cracked just yet (haven't even started trying...)
     cracked=False
 
-    #check all the possible combinations of strings up to 6 character
-    for pwTry in bruteForce(chars_small,6):
+    #check all the possible combinations of strings up to 4 character
+    for pwTry in bruteForce(chars_small,4):
         if hashType=="md5":
             if hash_it.hash_md5(pwTry)==hashToCrack:
                 cracked=True
@@ -55,4 +56,4 @@ def crack_it(hashToCrack, hashType):
 
     #otherwise accept defeat
     else:
-        return "0"
+        return "I couldn't crack it :("
